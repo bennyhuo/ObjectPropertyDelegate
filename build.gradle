@@ -11,7 +11,7 @@ buildscript {
 }
 
 group 'com.bennyhuo.kotlin'
-version '1.0-rc'
+version '1.0-rc-2'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
