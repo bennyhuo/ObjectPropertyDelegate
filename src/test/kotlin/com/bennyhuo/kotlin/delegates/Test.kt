@@ -2,6 +2,7 @@ package com.bennyhuo.kotlin.delegates
 
 import org.junit.Assert
 import org.junit.Test
+import java.lang.AssertionError
 
 class Test{
     @Test
@@ -15,11 +16,23 @@ class Test{
         Assert.assertEquals(wrapper.y, 1)
         Assert.assertEquals(wrapper.yGetter, 12)
         Assert.assertEquals(wrapper.z, 10)
+
+        Assert.assertFalse(wrapper.wrappedLazyInitialized)
+        Assert.assertTrue(wrapper.xLazy)
+        Assert.assertTrue(wrapper.wrappedLazyInitialized)
+
+        Assert.assertEquals(wrapper.z, 10)
     }
 }
 
 class Wrapper {
     private val wrapped: Wrapped = Wrapped(false)
+
+    var wrappedLazyInitialized = false
+    private val wrappedLazy by lazy {
+        wrappedLazyInitialized = true
+        Wrapped(true)
+    }
 
     var x by wrapped::x.delegator()
     var y by wrapped::setY.delegator(defaultValue = 0)
@@ -34,6 +47,10 @@ class Wrapper {
 
     var y3 by delegateWithReceiverOf(wrapped, Wrapped::getY, Wrapped::setY)
     var y4 by delegateOf(wrapped, Wrapped::getY, Wrapped::setY)
+
+    var xLazy by delegateLazyOf(Wrapped::x, Wrapped::x::set, false) {
+        wrappedLazy
+    }
 }
 
 class Wrapped(var x: Boolean) {
