@@ -1,4 +1,4 @@
-package com.bennyhuo.kotlin.opd
+package com.bennyhuo.kotlin.delegates
 
 import org.junit.Assert
 import org.junit.Test
@@ -25,6 +25,15 @@ class Wrapper {
     var y by wrapped::setY.delegator(defaultValue = 0)
     val yGetter by wrapped::getY.delegator()
     val z by wrapped::z.delegator()
+
+    var x0 by delegateOf(wrapped::x, wrapped::x::set)
+    var x1 by delegateOf(wrapped::setY)
+
+    var y1 by delegateWithReceiverOf(wrapped, Wrapped::setY)
+    var y2 by delegateOf(wrapped, Wrapped::setY)
+
+    var y3 by delegateWithReceiverOf(wrapped, Wrapped::getY, Wrapped::setY)
+    var y4 by delegateOf(wrapped, Wrapped::getY, Wrapped::setY)
 }
 
 class Wrapped(var x: Boolean) {

@@ -1,4 +1,4 @@
-package com.bennyhuo.kotlin.opd
+package com.bennyhuo.kotlin.delegates
 
 import kotlin.jvm.internal.PropertyReference
 import kotlin.properties.ReadWriteProperty
@@ -7,7 +7,14 @@ import kotlin.reflect.*
 fun <T> delegateOf(setter: ((T) -> Unit)? = null, defaultValue: T? = null): ReadWriteProperty<Any, T> = ObjectPropertyDelegateNoGetter0(setter, defaultValue)
 fun <T> delegateOf(getter: (() -> T), setter: ((T) -> Unit)? = null, defaultValue: T? = null): ReadWriteProperty<Any, T> = ObjectPropertyDelegate0(getter, setter, defaultValue)
 
+fun <T, R> delegateOf(receiver: R, setter: ((R, T) -> Unit)? = null, defaultValue: T? = null): ReadWriteProperty<Any, T> = ObjectPropertyDelegateNoGetter1(receiver, setter, defaultValue)
+fun <T, R> delegateOf(receiver: R, getter: ((R) -> T), setter: ((R, T) -> Unit)? = null, defaultValue: T? = null): ReadWriteProperty<Any, T> = ObjectPropertyDelegate1(receiver, getter, setter, defaultValue)
+
+@Deprecated(message = "Please use delegateOf instead.",
+        replaceWith = ReplaceWith("delegateOf(receiver, setter, defaultValue)", "com.bennyhuo.kotlin.delegates"))
 fun <T, R> delegateWithReceiverOf(receiver: R, setter: ((R, T) -> Unit)? = null, defaultValue: T? = null): ReadWriteProperty<Any, T> = ObjectPropertyDelegateNoGetter1(receiver, setter, defaultValue)
+@Deprecated(message = "Please use delegateOf instead.",
+        replaceWith = ReplaceWith("delegateOf(receiver, getter, setter, defaultValue)", "com.bennyhuo.kotlin.delegates"))
 fun <T, R> delegateWithReceiverOf(receiver: R, getter: ((R) -> T), setter: ((R, T) -> Unit)? = null, defaultValue: T? = null): ReadWriteProperty<Any, T> = ObjectPropertyDelegate1(receiver, getter, setter, defaultValue)
 
 fun <T> KProperty0<T>.delegator(defaultValue: T? = null): ReadWriteProperty<Any, T> = ObjectPropertyDelegate0(propertyRef = this as PropertyReference, defaultValue = defaultValue)

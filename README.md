@@ -38,7 +38,7 @@ Works like a charm.
 It has been deployed to jCenter.
 
 ```
-compile "com.bennyhuo.kotlin:opd:1.0-rc-2"
+compile "com.bennyhuo.kotlin:delegates:1.0"
 ```
 
 # Issue

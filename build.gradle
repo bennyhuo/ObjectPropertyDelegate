@@ -1,17 +1,17 @@
 buildscript {
-    ext.kotlin_version = '1.2.40'
+    ext.kotlin_version = '1.3.71'
 
     repositories {
         jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.novoda:bintray-release:0.7.0'
+        classpath 'com.novoda:bintray-release:0.8.1'
     }
 }
 
 group 'com.bennyhuo.kotlin'
-version '1.0-rc-2'
+version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
@@ -64,7 +64,7 @@ publish {
     userOrg = project.userName
     groupId = project.groupId
     repoName = project.repoName
-    artifactId = 'opd'
+    artifactId = 'delegates'
     publishVersion = project.publishVersion
     desc = project.desc//描述，不重要
     website = project.website
