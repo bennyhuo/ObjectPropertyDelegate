@@ -18,7 +18,7 @@ class Test{
         Assert.assertEquals(wrapper.z, 10)
 
         Assert.assertFalse(wrapper.wrappedLazyInitialized)
-        Assert.assertTrue(wrapper.xLazy)
+        Assert.assertFalse(wrapper.xLazy)
         Assert.assertTrue(wrapper.wrappedLazyInitialized)
 
         Assert.assertEquals(wrapper.z, 10)
@@ -35,7 +35,7 @@ class Wrapper {
     }
 
     var x by wrapped::x.delegator()
-    var y by wrapped::setY.delegator(defaultValue = 0)
+    var y by wrapped::setY.delegator(initializedValue = 0)
     val yGetter by wrapped::getY.delegator()
     val z by wrapped::z.delegator()
 
