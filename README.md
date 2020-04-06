@@ -31,6 +31,30 @@ class Wrapper {
 }
 ```
 
+For those who want to delegate lazy initialized properties, such as:
+
+```kotlin
+class MainActivity: Activity() {
+    // This would lead to null pointer exception.
+    val name by delegateOf(TextView::getText, TextView::setText, textView)
+    // or
+    val name by delegateOf(textView::getText, textView::setText)
+
+}
+```
+
+`nameView` may be initialized after the content view setting up, so we need a lazy delegate for that:
+
+ ```kotlin
+ class MainActivity: Activity() {
+ 
+     val name by delegateLazyOf(TextView::getText, TextView::setText) { textView }
+ 
+ }
+ ```
+
+Only accessing `nameView` when `name` is accessed.
+
 Works like a charm.
 
 # Use in your project
@@ -38,7 +62,7 @@ Works like a charm.
 It has been deployed to jCenter.
 
 ```
-compile "com.bennyhuo.kotlin:delegates:1.0"
+implementation("com.bennyhuo.kotlin:delegates:1.0")
 ```
 
 # Issue

@@ -43,10 +43,10 @@ class Wrapper {
     var x1 by delegateOf(wrapped::setY)
 
     var y1 by delegateWithReceiverOf(wrapped, Wrapped::setY)
-    var y2 by delegateOf(wrapped, Wrapped::setY)
+    var y2 by delegateOf(Wrapped::setY, wrapped)
 
     var y3 by delegateWithReceiverOf(wrapped, Wrapped::getY, Wrapped::setY)
-    var y4 by delegateOf(wrapped, Wrapped::getY, Wrapped::setY)
+    var y4 by delegateOf(Wrapped::getY, Wrapped::setY, wrapped)
 
     var xLazy by delegateLazyOf(Wrapped::x, Wrapped::x::set, false) {
         wrappedLazy
